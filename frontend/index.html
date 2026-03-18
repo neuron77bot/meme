@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Running</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #000000;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .terminal {
+            text-align: center;
+            animation: blink 1.5s infinite;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            font-weight: normal;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 10px #00ff00;
+        }
+        
+        .cursor {
+            display: inline-block;
+            width: 0.6em;
+            height: 1em;
+            background-color: #00ff00;
+            margin-left: 0.2em;
+            animation: cursor-blink 1s step-end infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        @keyframes cursor-blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .info {
+            margin-top: 2rem;
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <h1>SERVICE RUNNING<span class="cursor"></span></h1>
+        <div class="info">[ OK ] System operational</div>
+    </div>
+</body>
+</html>

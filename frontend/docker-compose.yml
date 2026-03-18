@@ -1,0 +1,29 @@
+services:
+  meme-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: meme-frontend:latest
+    container_name: meme-frontend
+    expose:
+      - "80"
+    restart: unless-stopped
+    networks:
+      - proxy
+    labels:
+      # Habilitar Traefik
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      
+      # Router principal para subdominio meme.vm.devalliance.com.ar
+      - "traefik.http.routers.meme-frontend.rule=Host(\`meme.vm.devalliance.com.ar\`)"
+      - "traefik.http.routers.meme-frontend.entrypoints=websecure"
+      - "traefik.http.routers.meme-frontend.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.meme-frontend.service=meme-frontend-service"
+      
+      # Service (frontend nginx)
+      - "traefik.http.services.meme-frontend-service.loadbalancer.server.port=80"
+
+networks:
+  proxy:
+    external: true
