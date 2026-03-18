@@ -16,7 +16,7 @@ services:
       - "traefik.docker.network=proxy"
       
       # Router principal para subdominio meme.vm.devalliance.com.ar
-      - "traefik.http.routers.meme-frontend.rule=Host(\`meme.vm.devalliance.com.ar\`)"
+      - "traefik.http.routers.meme-frontend.rule=Host(`meme.vm.devalliance.com.ar`)"
       - "traefik.http.routers.meme-frontend.entrypoints=websecure"
       - "traefik.http.routers.meme-frontend.tls.certresolver=letsencrypt"
       - "traefik.http.routers.meme-frontend.service=meme-frontend-service"
