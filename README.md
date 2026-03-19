@@ -2,19 +2,14 @@
 
 ## 🚀 Quick Start
 
-### Frontend
+### Backend
 ```bash
-cd frontend
+cd backend
 docker compose up -d
 ```
 
-**URL:** https://meme.vm.devalliance.com.ar
-
-### Development
-```bash
-cd frontend
-docker compose logs -f
-```
+**API:** https://meme.vm.devalliance.com.ar/api
+**Docs:** https://meme.vm.devalliance.com.ar/api/docs
 
 ## 📁 Structure
 ```
@@ -24,6 +19,13 @@ meme/
 │   ├── Dockerfile
 │   ├── index.html
 │   └── nginx.conf
+├── backend/
+│   ├── docker-compose.yml
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── .env
+│   └── src/
+│       └── server.js
 └── README.md
 ```
 

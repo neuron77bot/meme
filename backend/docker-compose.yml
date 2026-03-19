@@ -1,0 +1,40 @@
+services:
+  meme-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: meme-backend:latest
+    container_name: meme-backend
+    expose:
+      - "3000"
+    restart: unless-stopped
+    env_file:
+      - .env
+    networks:
+      - meme-network
+      - proxy
+    labels:
+      # Habilitar Traefik
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      
+      # Router principal para /api/
+      - "traefik.http.routers.meme-api.rule=Host(`meme.vm.devalliance.com.ar`) && PathPrefix(`/api/`)"
+      - "traefik.http.routers.meme-api.entrypoints=websecure"
+      - "traefik.http.routers.meme-api.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.meme-api.service=meme-api-service"
+      - "traefik.http.routers.meme-api.middlewares=meme-api-stripprefix"
+      - "traefik.http.routers.meme-api.priority=300"
+      
+      # Middleware: strip prefix /api/ -> /
+      - "traefik.http.middlewares.meme-api-stripprefix.stripprefix.prefixes=/api"
+      - "traefik.http.middlewares.meme-api-stripprefix.stripprefix.forceSlash=false"
+      
+      # Service (backend)
+      - "traefik.http.services.meme-api-service.loadbalancer.server.port=3000"
+
+networks:
+  meme-network:
+    driver: bridge
+  proxy:
+    external: true
