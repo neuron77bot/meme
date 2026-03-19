@@ -2,6 +2,14 @@
 
 ## 🚀 Quick Start
 
+### Frontend
+```bash
+cd frontend
+docker compose up -d
+```
+
+**URL:** https://meme.vm.devalliance.com.ar
+
 ### Backend
 ```bash
 cd backend
