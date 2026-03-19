@@ -23,7 +23,7 @@ fastify.register(require('@fastify/swagger'), {
 });
 
 fastify.register(require('@fastify/swagger-ui'), {
-  routePrefix: '/docs',
+  routePrefix: '/api/docs',
   uiConfig: {
     docExpansion: 'list',
     deepLinking: false,

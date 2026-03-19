@@ -18,7 +18,14 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=proxy"
       
-      # Router principal para /api/
+      # Router para /api/docs (sin stripprefix, prioridad alta)
+      - "traefik.http.routers.meme-docs.rule=Host(`meme.vm.devalliance.com.ar`) && PathPrefix(`/api/docs`)"
+      - "traefik.http.routers.meme-docs.entrypoints=websecure"
+      - "traefik.http.routers.meme-docs.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.meme-docs.service=meme-api-service"
+      - "traefik.http.routers.meme-docs.priority=400"
+      
+      # Router principal para /api/ (con stripprefix, prioridad normal)
       - "traefik.http.routers.meme-api.rule=Host(`meme.vm.devalliance.com.ar`) && PathPrefix(`/api/`)"
       - "traefik.http.routers.meme-api.entrypoints=websecure"
       - "traefik.http.routers.meme-api.tls.certresolver=letsencrypt"
@@ -26,7 +33,7 @@ services:
       - "traefik.http.routers.meme-api.middlewares=meme-api-stripprefix"
       - "traefik.http.routers.meme-api.priority=300"
       
-      # Middleware: strip prefix /api/ -> /
+      # Middleware: strip prefix /api/ -> / (solo para rutas de API, no docs)
       - "traefik.http.middlewares.meme-api-stripprefix.stripprefix.prefixes=/api"
       - "traefik.http.middlewares.meme-api-stripprefix.stripprefix.forceSlash=false"
       
